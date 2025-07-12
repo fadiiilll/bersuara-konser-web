@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Update Ticket</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-12">
+            <form action="/update/{{ ticket.id }}" method="POST">
+                <h1>UPDATE DATA</h1>
+
+                <fieldset>
+                    <legend><span class="number">1</span> YOUR DETAILS</legend>
+
+                    <label for="name">name:</label>
+                    <input type="text" id="name" name="name" value="{{ ticket.name }}">
+
+                    <label for="last_name">last name:</label>
+                    <input type="text" id="last_name" name="last_name" value="{{ ticket.last_name }}">
+
+                    <label for="email">email:</label>
+                    <input type="email" id="email" name="email" value="{{ ticket.email }}">
+
+                    <label for="phonenumber">phonenumber:</label>
+                    <input type="number" id="phonenumber" name="phonenumber" value="{{ ticket.phonenumber }}">
+
+                    <label for="date_of_birth">date of birth:</label>
+                    <input type="datetime-local" id="date_of_birth" name="date_of_birth" value="{{ ticket.date_of_birth|replace(' ', 'T') }}">
+
+                    <label for="passes">passes:</label>
+                    <select id="passes" name="passes">
+                        <option value="general" {% if ticket.passes == 'general' %}selected{% endif %}>General</option>
+                        <option value="vip" {% if ticket.passes == 'vip' %}selected{% endif %}>VIP</option>
+                        <option value="backstage" {% if ticket.passes == 'backstage' %}selected{% endif %}>Backstage</option>
+                    </select>
+
+                    <label for="seat">seat no:</label>
+                    <select id="seat" name="seat">
+                        {% for seat in ['1A','2C','12B','4A','5C','3B','4D','19C','23C','13A','16C','9C','11B'] %}
+                            <option value="{{ seat }}" {% if ticket.seat == seat %}selected{% endif %}>{{ seat }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <label for="events">event:</label>
+                    <select id="events" name="events">
+  {% set events = ['BERNADYA IN TAUTAU FEST','ADE ASTRID','DEWA 19 IN GBK','HARMONIA LIVE','SYNCHRONIZE FEST','HAMMERSONIC','COLDPLAY','FLOWER CITY FEST'] %}
+  {% for event in events %}
+      <option value="{{ event }}" {% if ticket.events == event %}selected{% endif %}>{{ event }}</option>
+  {% endfor %}
+</select>
+
+                </fieldset>
+
+                <fieldset>
+                    <button type="submit">UPDATE</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a href="/tickets">
+            <img style="position: absolute; top: 5%; right: 10%;" src="/static/back-arrow-50.png" alt="back">
+        </a>
+    </div>
+</body>
+</html>
